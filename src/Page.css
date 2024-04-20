@@ -4,21 +4,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .red { background-color: red; }
-  .orange { background-color: orange; }
-  .green { background-color: green; }
-  .black { background-color: black; }
-  
-  .circle {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    position: relative;
-  }
-  
-  .circle.red { background-color: red; }
-  .circle.orange { background-color: orange; }
-  .circle.green { background-color: green; }
-  
+}
+
+.red { background-color: #FF4B4B; }
+.orange { background-color: #FFE662; }
+.green { background-color: #65FF62; }
+.black { background-color: black; }
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.circle.red { 
+  background-color: #FF4B4B; 
+  box-shadow: 0px 0px 33px 40px #FF4B4B; 
+}
+.circle.orange { background-color: #FFE662; 
+  box-shadow: 0px 0px 33px 40px #FFE662; 
+}
+.circle.green { background-color: #65FF62; 
+  box-shadow: 0px 0px 33px 40px #65FF62; 
+}
