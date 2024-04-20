@@ -12,7 +12,7 @@ const NavigationArea = ({ direction }) => {
       let nextPage;
       switch (direction) {
         case 'left':
-          nextPage = currentPage === 1 ? 3 : currentPage - 1;
+          nextPage = currentPage === 1 ? 3 : currentPage === 4 ? 6 :  currentPage - 1;
           break;
         case 'right':
           nextPage = currentPage === 3 ? 1 : currentPage === 6 ? 4 : currentPage + 1;
