@@ -5,36 +5,66 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState,  } from "react";
 
 const NavigationArea = ({ direction }) => {
-    const navigate = useNavigate();
-    const navigateToPage = () => {
-      let path = window.location.pathname;
-      let currentPage = parseInt(path.replace('/page', ''), 10);
-      let nextPage;
-      switch (direction) {
-        case 'left':
-          nextPage = currentPage === 1 ? 3 : currentPage === 4 ? 6 :  currentPage - 1;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case 'a': // Left
+          navigateToPage('left');
           break;
-        case 'right':
-          nextPage = currentPage === 3 ? 1 : currentPage === 6 ? 4 : currentPage + 1;
+        case 'd': // Right
+          navigateToPage('right');
           break;
-        case 'up':
-          nextPage = currentPage <= 3 ? 4 : 1;
+        case 'w': // Up
+          navigateToPage('up');
           break;
-        case 'down':
-          nextPage = currentPage <= 3 ? 4 : 1;
+        case 's': // Down
+          navigateToPage('down');
           break;
         default:
           break;
       }
-  
-      navigate(`/page${nextPage}`);
     };
-  
-    return (
-      <div className={`navigation-area ${direction}`} onClick={navigateToPage} />
-    );
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [navigate]);
+
+  const navigateToPage = (direction) => {
+    let path = window.location.pathname;
+    let currentPage = parseInt(path.replace('/page', ''), 10);
+    let nextPage;
+    switch (direction) {
+      case 'left':
+        nextPage = currentPage === 1 ? 3 : currentPage === 4 ? 6 : currentPage - 1;
+        break;
+      case 'right':
+        nextPage = currentPage === 3 ? 1 : currentPage === 6 ? 4 : currentPage + 1;
+        break;
+      case 'up':
+        nextPage = currentPage <= 3 ? 4 : 1;
+        break;
+      case 'down':
+        nextPage = currentPage <= 3 ? 4 : 1;
+        break;
+      default:
+        break;
+    }
+
+    navigate(`/page${nextPage}`);
   };
-  const TimeTable = ({ pageTimes, pageVisits }) => {
+
+  return (
+    <div className={`navigation-area ${direction}`} onClick={navigateToPage} />
+  );
+};
+
+const TimeTable = ({ pageTimes, pageVisits }) => {
     return (
       <div>
         <h3>Time Spent on Pages</h3>
