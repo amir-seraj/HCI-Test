@@ -6,40 +6,11 @@ import { useEffect, useState,  } from "react";
 
 const NavigationArea = ({ direction }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      switch (event.key) {
-        case 'ArrowLeft': // Left
-          navigateToPage('left');
-          break;
-        case 'ArrowRight': // Right
-          navigateToPage('right');
-          break;
-        case 'ArrowUp': // Up
-          navigateToPage('up');
-          break;
-        case 's': // Down
-          navigateToPage('down');
-          break;
-        default:
-          break;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    // Cleanup the event listener
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [navigate]);
-
-  const navigateToPage = (direction) => {
+  const navigateToPage = (dir) => { // Changed parameter name to avoid confusion with the prop
     let path = window.location.pathname;
     let currentPage = parseInt(path.replace('/page', ''), 10);
     let nextPage;
-    switch (direction) {
+    switch (dir) { // Use the parameter 'dir' instead of the prop 'direction'
       case 'left':
         nextPage = currentPage === 1 ? 3 : currentPage === 4 ? 6 : currentPage - 1;
         break;
@@ -53,6 +24,7 @@ const NavigationArea = ({ direction }) => {
         nextPage = currentPage <= 3 ? 4 : 1;
         break;
       default:
+        nextPage = 1; // Default to page 1 if direction is not recognized
         break;
     }
 
@@ -60,7 +32,9 @@ const NavigationArea = ({ direction }) => {
   };
 
   return (
-    <div className={`navigation-area ${direction}`} onClick={navigateToPage} />
+    <div className={`navigation-area ${direction}`} onClick={() => navigateToPage(direction)}>
+      {/* Added arrow function to correctly pass the direction */}
+    </div>
   );
 };
 
