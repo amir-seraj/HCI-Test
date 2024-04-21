@@ -10,13 +10,13 @@ const NavigationArea = ({ direction }) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       switch (event.key) {
-        case 'a': // Left
+        case 'ArrowLeft': // Left
           navigateToPage('left');
           break;
-        case 'd': // Right
+        case 'ArrowRight': // Right
           navigateToPage('right');
           break;
-        case 'w': // Up
+        case 'ArrowUp': // Up
           navigateToPage('up');
           break;
         case 's': // Down
