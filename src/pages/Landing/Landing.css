@@ -1,0 +1,43 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343a40;
+}
+.title {
+  font-family: "Montserrat", sans-serif;
+  color: aliceblue;
+  margin-right: 3rem;
+}
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btnLanding {
+  position: relative;
+  border: none;
+  width: 8em;
+  height: 3em;
+  border-radius: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1c1a1c;
+  cursor: pointer;
+  transition: all 450ms ease-in-out;
+  font-weight: 600;
+  color: #e1e1e1;
+  font-size: medium;
+  margin: 0.5rem;
+}
+.start-btn:hover {
+  background: linear-gradient(0deg, #7cf3b2, #3fea8c);
+  box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+    inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+    0px 0px 0px 4px rgba(255, 255, 255, 0.2), 0px 0px 180px 0px #17ff3e;
+  transform: translateY(-2px);
+  color: #141414;
+}

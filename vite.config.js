@@ -4,5 +4,5 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(),VitePWA({manifest:{icons:[{src:"./8666715_book_open_icon.png",sizes:"5112x512",type:"image/png",purpose:"any maskable"}]}})],
+  plugins: [react(),VitePWA()],
 })

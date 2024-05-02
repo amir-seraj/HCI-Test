@@ -1,182 +1,112 @@
-import { BrowserRouter,  Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Page from "./Page";
 import "./App.css";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState,  } from "react";
+import { AnimatePresence } from "framer-motion";
+import Landing from "./pages/Landing/Landing";
 
-const NavigationArea = ({ direction }) => {
-  const navigate = useNavigate();
-  const navigateToPage = (dir) => { // Changed parameter name to avoid confusion with the prop
-    let path = window.location.pathname;
-    let currentPage = parseInt(path.replace('/page', ''), 10);
-    let nextPage;
-    switch (dir) { // Use the parameter 'dir' instead of the prop 'direction'
-      case 'left':
-        nextPage = currentPage === 1 ? 3 : currentPage === 4 ? 6 : currentPage - 1;
-        break;
-      case 'right':
-        nextPage = currentPage === 3 ? 1 : currentPage === 6 ? 4 : currentPage + 1;
-        break;
-      case 'up':
-        nextPage = currentPage <= 3 ? 4 : 1;
-        break;
-      case 'down':
-        nextPage = currentPage <= 3 ? 4 : 1;
-        break;
-      default:
-        nextPage = 1; // Default to page 1 if direction is not recognized
-        break;
-    }
-
-    navigate(`/page${nextPage}`);
-  };
-
-  return (
-    <div className={`navigation-area ${direction}`} onClick={() => navigateToPage(direction)}>
-      {/* Added arrow function to correctly pass the direction */}
-    </div>
-  );
-};
-
-const TimeTable = ({ pageTimes, pageVisits }) => {
-    return (
-      <div>
-        <h3>Time Spent on Pages</h3>
-        <div style={{ display: "flex", gap: "2rem" }}>
-          <table>
-            <thead>
-              <tr>
-                <th>Page</th>
-                <th>Time Spent (sec)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pageTimes.map((entry, index) => (
-                <tr key={index}>
-                  <td>{entry.page}</td>
-                  <td>{entry.timeSpent.toFixed(2)}</td> {/* Already in sec */}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <table>
-            <thead>
-              <tr>
-                <th>Page</th>
-                <th>Timestamp</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pageVisits.map((visit, index) => (
-                <tr key={index}>
-                  <td>{visit.page}</td>
-                  <td>{new Date(visit.timestamp).toLocaleString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
-  
-
-const AppWrapper = () => {
-  return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  );
-};
 const App = () => {
-  const location = useLocation();
-  const [pageTimes, setPageTimes] = useState([]);
-  const [startTime, setStartTime] = useState(Date.now());
-
-  const [pageVisits, setPageVisits] = useState([]);
-
-  useEffect(() => {
-    // Record the visit with a timestamp when the path changes
-    const currentPage = location.pathname.replace('/page', '');
-    const visit = { page: currentPage, timestamp: Date.now() };
-    setPageVisits(prevPageVisits => [...prevPageVisits, visit]);
-  }, [location.pathname]);
-
-  useEffect(() => {
-    // Update the start time when the path changes
-    setStartTime(Date.now());
-  }, [location.pathname]);
-
-  useEffect(() => {
-    // Calculate and update the time spent when the path changes
-    const handleRouteChange = () => {
-      const pageLeaveTime = Date.now();
-      const timeSpent = pageLeaveTime - startTime;
-      
-      const currentPage = location.pathname.replace('/page', '');
-      const timeEntry = { page: currentPage, timeSpent: parseFloat(timeSpent.toFixed(2)) };
-      setPageTimes(prevPageTimes => [...prevPageTimes, timeEntry]);
-    };
-    //   setPageTimes(prevPageTimes => {
-    //     const currentPageTimes = prevPageTimes[currentPage] || [];
-    //     return {
-    //       ...prevPageTimes,
-    //       [currentPage]: [...currentPageTimes, timeSpent]
-    //     };
-    //   });
-    // };
-
-    // Call the route change handler when the component mounts or updates
-    handleRouteChange();
-
-    // Return a cleanup function that updates the time when the component unmounts
-  //   return handleRouteChange;
-  // }, [location, startTime]);
-  return () => {
-    window.removeEventListener('popstate', handleRouteChange);
-  };
-}, [location.pathname, startTime]);
-
-  // Function to download data as a JSON file
-  const downloadDataAsJson = (data, filename) => {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
-
-  // Function to handle the download when a button is clicked
-  const handleDownload = () => {
-    const dataToDownload = {
-      pageTimes,
-      pageVisits
-    };
-    downloadDataAsJson(dataToDownload, 'page-data.json');
-  };
-  
   return (
     <>
-      <Routes>
-        <Route path="/page1" element={<Page bgColor="green" />} />
-        <Route path="/page2" element={<Page bgColor="orange" />} />
-        <Route path="/page3" element={<Page bgColor="red" />} />
-        <Route path="/page4" element={<Page bgColor="black" circleColor="green" />} />
-        <Route path="/page5" element={<Page bgColor="black" circleColor="orange" />} />
-        <Route path="/page6" element={<Page bgColor="black" circleColor="red" />} />
-      </Routes>
-      <NavigationArea direction="left" />
-      <NavigationArea direction="right" />
-      <NavigationArea direction="up" />
-      <NavigationArea direction="down" />
-      <button onClick={handleDownload}>Download Data as JSON</button>
-      <TimeTable pageTimes={pageTimes} pageVisits={pageVisits} />
+      <AnimatePresence>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          {/* RESTING */}
+          <Route
+            path="/GR"
+            element={
+              <Page
+                key="/GR"
+                bgColor="black"
+                faceColor="greenf"
+                faceState="happy"
+              />
+            }
+          />
+          <Route
+            path="/OR"
+            element={
+              <Page
+                key="/OR"
+                bgColor="black"
+                faceColor="orangef"
+                faceState="annoyed"
+              />
+            }
+          />
+          <Route
+            path="/RR"
+            element={
+              <Page
+                key="/RR"
+                bgColor="black"
+                faceColor="redf"
+                faceState="sad"
+              />
+            }
+          />
+          {/* WORKING */}
+          <Route
+            path="/GW"
+            element={
+              <Page
+                // key="/GW"
+                bgColor="green"
+              />
+            }
+          />
+          <Route
+            path="/OW"
+            element={
+              <Page
+                // key="/OW"
+                bgColor="orange"
+              />
+            }
+          />
+          <Route
+            path="/RW"
+            element={
+              <Page
+                // key="/RW"
+                bgColor="red"
+              />
+            }
+          />
+          {/* GAMING */}
+          <Route
+            path="/GG"
+            element={
+              <Page
+                // key="/GG"
+                bgColor="black"
+                circleColor="green"
+              />
+            }
+          />
+          <Route
+            path="/OG"
+            element={
+              <Page
+                // key="/OG"
+                bgColor="black"
+                circleColor="orange"
+              />
+            }
+          />
+          <Route
+            path="/RG"
+            element={
+              <Page
+                // key="/RG"
+                bgColor="black"
+                circleColor="red"
+              />
+            }
+          />
+        </Routes>
+      </AnimatePresence>
     </>
   );
 };
 
-export default AppWrapper;
+export default App;

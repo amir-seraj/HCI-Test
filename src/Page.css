@@ -1,15 +1,21 @@
 .page {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
 }
 
-.red { background-color: #FF4B4B; }
-.orange { background-color: #FFE662; }
-.green { background-color: #65FF62; }
-.black { background-color: black; }
+.red {
+  background-color: #ff4b4b;
+}
+.orange {
+  background-color: #ffe662;
+}
+.green {
+  background-color: #65ff62;
+}
 
 .circle {
   width: 100px;
@@ -18,13 +24,141 @@
   position: relative;
 }
 
-.circle.red { 
-  background-color: #FF4B4B; 
-  box-shadow: 0px 0px 33px 40px #FF4B4B; 
+.circle.red {
+  background-color: #ff4b4b;
+  box-shadow: 0px 0px 33px 40px #ff4b4b;
+  animation: breathingR 3s ease-in-out infinite; /* Infinite animation */
 }
-.circle.orange { background-color: #FFE662; 
-  box-shadow: 0px 0px 33px 40px #FFE662; 
+.circle.orange {
+  background-color: #ffe662;
+  box-shadow: 0px 0px 33px 40px #ffe662;
+  animation: breathingO 3s ease-in-out infinite; /* Infinite animation */
 }
-.circle.green { background-color: #65FF62; 
-  box-shadow: 0px 0px 33px 40px #65FF62; 
+.circle.green {
+  background-color: #65ff62;
+  box-shadow: 0px 0px 33px 40px #65ff62;
+  animation: breathingG 3s ease-in-out infinite; /* Infinite animation */
+}
+.face {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: black;
+}
+.eyes {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1rem;
+}
+.eye {
+  width: 70px;
+  height: 70px;
+  border-radius: 10% 10% 30% 30%;
+  border-radius: 50%;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+.eyelid {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  box-shadow: 0px 0px 20px 18px #000;
+  border-radius: 10% 10% 30% 30%;
+}
+.mouth {
+  width: 150px;
+  height: 50px;
+  background: #65ff62;
+}
+.greenf {
+  background-color: #65ff62;
+  box-shadow: 0px 0px 6px 4px #65ff62;
+}
+.orangef {
+  background-color: #ffe662;
+  box-shadow: 0px 0px 6px 4px #ffe662;
+}
+.redf {
+  background-color: #ff4b4b;
+  box-shadow: 0px 0px 6px 4px #ff4b4b;
+}
+.happy {
+  border-radius: 30px 30px 200px 200px;
+}
+.annoyed {
+  border-radius: 40px 40px 40px 40px;
+}
+.sad {
+  border-radius: 70px 70px 30px 30px;
+}
+
+@keyframes breathingG {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes breathingO {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes breathingR {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/*  */
+
+.btn {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  border: none;
+  width: 5em;
+  height: 3em;
+  border-radius: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: #1c1a1c;
+  cursor: pointer;
+  transition: all 450ms ease-in-out;
+  font-weight: 600;
+  color: #aaaaaa;
+  font-size: medium;
+}
+.stop-btn:hover {
+  background: linear-gradient(0deg, #f37c7c, #ea3f3f);
+  box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+    inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+    0px 0px 0px 4px rgba(255, 255, 255, 0.2), 0px 0px 180px 0px #ff1717;
+  transform: translateY(-2px);
+  color: #141414;
 }
